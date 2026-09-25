@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Особенное приглашение ♡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Manrope,sans-serif;background:#09080d;color:#fff}
+body{overflow:hidden}
+button{font:inherit}
+.screen{
+  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+  padding:24px; opacity:0; pointer-events:none; transform:scale(1.025);
+  transition:opacity .55s ease,transform .55s ease;
+  overflow:auto;
+}
+.screen.active{opacity:1;pointer-events:auto;transform:scale(1)}
+.bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 50% 15%,rgba(255,160,196,.18),transparent 28%),
+    radial-gradient(circle at 15% 85%,rgba(130,90,190,.18),transparent 30%),
+    linear-gradient(135deg,#0b0910,#17111d 55%,#0a080e);
+}
+.bg:after{
+  content:"";position:absolute;inset:0;opacity:.35;
+  background-image:radial-gradient(#fff 1px,transparent 1px);
+  background-size:90px 90px;
+}
+.card{
+  position:relative;width:min(470px,100%);min-height:min(760px,calc(100vh - 48px));
+  border:1px solid rgba(255,255,255,.14);border-radius:30px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(13,11,18,.82),rgba(19,13,25,.92));
+  box-shadow:0 25px 100px rgba(0,0,0,.5),inset 0 0 60px rgba(255,145,190,.04);
+  padding:28px;display:flex;flex-direction:column;z-index:1;
+}
+.top{display:flex;justify-content:space-between;color:#c8bcc8;font-size:13px;letter-spacing:.02em}
+.top b{color:#ffabc6;font-size:17px}
+.hero{margin:auto 0;text-align:center}
+.kicker{font-family:"Cormorant Garamond",serif;font-size:29px;font-style:italic;color:#f3d7e4}
+h1{font-family:"Cormorant Garamond",serif;font-size:64px;line-height:.9;margin:10px 0 22px;font-weight:600}
+.sub{color:#c8bac6;line-height:1.65;font-size:15px;max-width:330px;margin:auto}
+.cat{font-size:100px;line-height:1;margin:22px 0;filter:drop-shadow(0 15px 25px rgba(255,150,190,.2))}
+.invite-image{width:min(330px,85%);height:220px;margin:24px auto;object-fit:cover;border-radius:24px;display:block;box-shadow:0 15px 35px rgba(0,0,0,.28)}
+.image-placeholder{
+  width:min(330px,85%);height:220px;margin:24px auto;
+  border:1.5px dashed rgba(255,171,198,.55);border-radius:24px;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:rgba(255,145,179,.055);color:#ffabc6;
+  font-size:15px;letter-spacing:.05em;
+}
+.image-placeholder small{font-size:10px;color:#a99aa6;margin-top:7px;letter-spacing:0}
+.actions{display:flex;gap:14px;align-items:center;justify-content:center;min-height:64px}
+.btn{
+  border:0;border-radius:999px;padding:17px 28px;cursor:pointer;min-width:180px;
+  transition:transform .2s,box-shadow .2s,background .2s;
+}
+.primary{background:#ff91b3;color:#220f18;box-shadow:0 12px 35px rgba(255,117,159,.28)}
+.primary:hover{transform:translateY(-2px);box-shadow:0 15px 40px rgba(255,117,159,.38)}
+.no{
+  background:#292530;color:#eee;border:1px solid rgba(255,255,255,.16);
+  position:relative;z-index:4;transition:left .12s ease,top .12s ease,transform .12s ease;
+}
+.hint{font-size:12px;color:#9e909d;text-align:center;margin-top:12px}
+.floating{position:absolute;color:#ff9fbd;font-size:28px;opacity:.7;animation:float 4s ease-in-out infinite}
+.f1{left:8%;top:30%}.f2{right:8%;top:43%;animation-delay:1s}.f3{left:15%;bottom:15%;animation-delay:2s}
+@keyframes float{50%{transform:translateY(-13px) rotate(8deg);opacity:1}}
+
+.celebrate .hero{margin:auto 0 28px}
+.celebrate h1{font-size:54px;color:#ff9fbd;text-shadow:0 0 35px rgba(255,120,170,.25)}
+.confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.confetti i{position:absolute;width:8px;height:18px;background:#ff9fbd;opacity:.7;animation:fall 4s linear infinite}
+.confetti i:nth-child(1){left:8%;animation-delay:-1s}.confetti i:nth-child(2){left:22%;animation-delay:-2.2s}.confetti i:nth-child(3){left:42%;animation-delay:-.4s}.confetti i:nth-child(4){left:61%;animation-delay:-1.8s}.confetti i:nth-child(5){left:79%;animation-delay:-2.7s}.confetti i:nth-child(6){left:91%;animation-delay:-.8s}
+@keyframes fall{from{transform:translateY(-100px) rotate(0)}to{transform:translateY(800px) rotate(360deg)}}
+.speech{display:inline-block;border:1px solid rgba(255,255,255,.3);border-radius:50%;padding:11px 17px;margin:4px;color:#f5dce7;font-family:"Cormorant Garamond",serif;font-size:18px}
+
+.date .hero{margin:35px 0 20px}
+.date h1{font-size:46px;margin-bottom:10px}
+.calendar{background:rgba(31,27,35,.92);border:1px solid rgba(255,255,255,.13);border-radius:24px;padding:20px;margin:10px 0 18px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;font-size:17px;margin-bottom:20px}
+.arrow{background:none;border:0;color:#ddd;font-size:24px;cursor:pointer;padding:4px 10px}
+.week,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center}
+.week{color:#8f8591;font-size:11px;margin-bottom:8px}
+.day{border:0;background:none;color:#eee;border-radius:12px;height:39px;cursor:pointer}
+.day:hover{background:rgba(255,145,179,.14)}
+.day.selected{background:#ff9cba;color:#29121c;box-shadow:0 7px 20px rgba(255,120,165,.25)}
+.day.muted{color:#554d57;cursor:default}
+.confirm{width:100%;margin-top:auto}
+.result{text-align:center;margin-top:22px;min-height:70px}
+.result strong{display:block;font-size:17px;color:#ffabc5;margin-bottom:6px}
+.result span{font-size:13px;color:#bcb0bb}
+.hidden{display:none!important}
+@media(max-width:520px){
+  .screen{padding:12px}
+  .card{min-height:calc(100vh - 24px);border-radius:24px;padding:22px}
+  h1{font-size:55px}.celebrate h1{font-size:45px}.date h1{font-size:40px}
+  .cat{font-size:85px}
+  .actions{gap:10px}.btn{min-width:0;padding:16px 22px}
+}
+</style>
+</head>
+<body>
+
+<section class="screen active" id="s1">
+  <div class="bg"></div><div class="card" id="card1">
+    <div class="top"><span><b>♥</b> special invitation</span><span>1 / 3</span></div>
+    <span class="floating f1">♡</span><span class="floating f2">♡</span><span class="floating f3">♡</span>
+    <div class="hero">
+      <div class="kicker">ну что...</div>
+      <h1>идём?</h1>
+      <p class="sub">Приглашение на увлекательную прогулку<br>и мне нужен твой ответ 👀</p>
+      <img class="invite-image" src="01e43c9664c58c41807faaed828fb6cb.jpg" alt="Приглашение">
+    </div>
+    <div class="actions" id="actions">
+      <button class="btn primary" id="yes">♡ Пойду</button>
+      <button class="btn no" id="no">Не пойду</button>
+    </div>
+    <div class="hint" id="hint">попробуй нажать 😈</div>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="bg"></div><div class="card celebrate">
+    <div class="confetti"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="top"><span><b>♥</b> special invitation</span><span>2 / 3</span></div>
+    <div class="hero">
+      <div class="speech">ураа!</div>
+      <div class="speech">это будет круто! ♡</div>
+      <h1>Я НЕ СОМНЕВАЛСЯ,<br>ЧТО ТЫ<br>СОГЛАСИШЬСЯ!</h1>
+      <img class="invite-image" src="8b15e88e55abe30e64251b4288eba909.jpg" alt="Бурные эмоции">
+      <p class="sub">ты лучшая ♡</p>
+    </div>
+    <button class="btn primary" id="next">Так, спокойно. Дальше →</button>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="bg"></div><div class="card date">
+    <div class="top"><span><b>♥</b> special invitation</span><span>3 / 3</span></div>
+    <div class="hero">
+      <div class="kicker">Осталось решить<br>самое главное...</div>
+      <p class="sub">Когда состоится наше<br>великое событие? ♡</p>
+    </div>
+    <div class="calendar">
+      <div class="cal-head"><button class="arrow" id="prev">‹</button><strong id="monthTitle"></strong><button class="arrow" id="nextMonth">›</button></div>
+      <div class="week"><span>ПН</span><span>ВТ</span><span>СР</span><span>ЧТ</span><span>ПТ</span><span>СБ</span><span>ВС</span></div>
+      <div class="days" id="days"></div>
+    </div>
+    <button class="btn primary confirm" id="confirm">Зафиксировать эту дату ♡</button>
+    <div class="result hidden" id="result"><strong>Записано! ✨</strong><span id="resultText"></span></div>
+  </div>
+</section>
+
+<script>
+const screens=[...document.querySelectorAll('.screen')];
+function show(n){screens.forEach((s,i)=>s.classList.toggle('active',i===n));}
+
+const no=document.getElementById('no'), card=document.getElementById('card1'), hint=document.getElementById('hint');
+let escapes=0;
+function escapeNo(e){
+  if(e) e.preventDefault();
+  escapes++;
+  const rect=card.getBoundingClientRect(), b=no.getBoundingClientRect();
+  const pad=18;
+  const maxX=Math.max(pad,rect.width-b.width-pad);
+  const maxY=Math.max(130,rect.height-b.height-25);
+  const x=pad+Math.random()*(maxX-pad);
+  const y=120+Math.random()*Math.max(0,maxY-120);
+  no.style.position='absolute';
+  no.style.left=x+'px'; no.style.top=y+'px';
+  no.style.transform=`rotate(${(Math.random()*16-8).toFixed(1)}deg)`;
+  hint.textContent=escapes<3?'ещё попытка? 😈':escapes<6?'ну хватит уже 😂':'я понял';
+}
+no.addEventListener('pointerdown',escapeNo);
+no.addEventListener('mouseenter',()=>{if(window.matchMedia('(hover:hover)').matches) escapeNo()});
+document.getElementById('yes').onclick=()=>show(1);
+document.getElementById('next').onclick=()=>show(2);
+
+let current=new Date(2026,8,1), selected=null;
+const monthTitle=document.getElementById('monthTitle'), days=document.getElementById('days');
+function renderCalendar(){
+  const y=current.getFullYear(),m=current.getMonth();
+  monthTitle.textContent=new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric'}).format(current).replace(/^./,c=>c.toUpperCase());
+  days.innerHTML='';
+  const first=(new Date(y,m,1).getDay()+6)%7, count=new Date(y,m+1,0).getDate();
+  for(let i=0;i<first;i++){let x=document.createElement('button');x.className='day muted';x.disabled=true;days.appendChild(x)}
+  for(let d=1;d<=count;d++){
+    let x=document.createElement('button');x.className='day';x.textContent=d;
+    if(selected && selected.getFullYear()===y && selected.getMonth()===m && selected.getDate()===d)x.classList.add('selected');
+    x.onclick=()=>{selected=new Date(y,m,d);renderCalendar()};
+    days.appendChild(x);
+  }
+}
+document.getElementById('prev').onclick=()=>{current.setMonth(current.getMonth()-1);renderCalendar()};
+document.getElementById('nextMonth').onclick=()=>{current.setMonth(current.getMonth()+1);renderCalendar()};
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhUoduRSXQWKKFP6elFwiyz54tm9baigENuSbCMViYyrPDfb_bu0n3HUU-oI7hkKmd/exec';
+
+document.getElementById('confirm').onclick=async()=>{
+  if(!selected){
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('resultText').textContent='Сначала выбери дату ♡';
+    return;
+  }
+
+  const dateText = new Intl.DateTimeFormat('ru-RU',{
+    day:'numeric',month:'long',year:'numeric'
+  }).format(selected);
+
+  // Сохраняем дату на этом устройстве.
+  localStorage.setItem('invitationDate', dateText);
+
+  document.getElementById('result').classList.remove('hidden');
+  document.getElementById('resultText').textContent =
+    dateText + ' — день официального выхода';
+
+  // Если позже подключить Google Apps Script, дата будет отправляться в Google Таблицу.
+  if (GOOGLE_SCRIPT_URL) {
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({
+          date: dateText,
+          timestamp: new Date().toISOString()
+        })
+      });
+    } catch(e) {
+      console.log('Не удалось отправить дату в Google Таблицу:', e);
+    }
+  }
+};
+renderCalendar();
+</script>
+</body>
+</html>
